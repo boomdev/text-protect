@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Protect</title>
+    <script type="text/javascript">
+      /***
+       * MIT License:
+       * Copyright (c) 2009-2013 Jeff Mott
+       * Copyright (c) 2013-2016 Evan Vosberg
+       * See: https://github.com/brix/crypto-js/blob/develop/LICENSE
+       */
+
+      //cryptojs.js
+    </script>
+    <script type="text/javascript">
+      "use strict";
+      function checkOnline() {
+        if (window.navigator.onLine) {
+          document.getElementById("error").innerHTML = "YOU ARE NOT OFFLINE";
+          document.getElementById("error").style.display = "block";
+        }
+      }
+      window.addEventListener("load", () => {
+        checkOnline();
+        document.getElementById("exec").addEventListener("click", () => {
+          document.getElementById("error").innerHTML = "";
+          document.getElementById("error").style.display = "none";
+          try {
+            checkOnline();
+            const input = document.getElementById("input").value;
+            const password = document.getElementById("password").value;
+            const isEncrypt =
+              document.getElementById("taskSelector").value === "encrypt";
+            if (!input) {
+              throw "Input is missing";
+            }
+            if (!password) {
+              throw "Password is missing";
+            }
+            const out = isEncrypt
+              ? CryptoJS.AES.encrypt(input, password)
+              : CryptoJS.AES.decrypt(input, password).toString(
+                  CryptoJS.enc.Utf8
+                );
+            document.getElementById("output").value = out;
+          } catch (error) {
+            document.getElementById("error").innerHTML = error;
+            document.getElementById("error").style.display = "block";
+          }
+        });
+      });
+    </script>
+    <style>
+      .container {
+        margin: auto;
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+      }
+      textarea {
+        height: 400px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      #error {
+        display: none;
+        color: red;
+      }
+      #error::before,
+      #error::after {
+        content: "⚠";
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Text Protect</h1>
+      <select id="taskSelector">
+        <option value="encrypt">Encrypt</option>
+        <option value="decrypt">Decrypt</option>
+      </select>
+      <textarea id="input"></textarea>
+      <input id="password" placeholder="Enter password/passphrase" />
+      <div id="error"></div>
+      <button id="exec">Execute</button>
+      <textarea id="output"></textarea>
+    </div>
+  </body>
+</html>

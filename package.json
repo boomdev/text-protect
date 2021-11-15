@@ -1,0 +1,17 @@
+{
+  "name": "text-protect",
+  "version": "0.0.1",
+  "description": "encrypt and decrypt text without ever saving its clear content on file",
+  "main": "index.js",
+  "repository": "https://github.com/boomdev/text-protect.git",
+  "author": "boomdev <77476374+boomdev@users.noreply.github.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "crypto-js": "^4.1.1"
+  },
+  "devDependencies": {
+    "grunt": "^1.4.1",
+    "grunt-combine": "^0.8.3"
+  }
+}
